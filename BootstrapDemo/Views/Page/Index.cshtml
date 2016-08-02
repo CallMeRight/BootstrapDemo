@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @Html.ActionLink("Next", "Index", "Home", new { page = 111 }, null)
+
+
+        @Html.ActionLink("Next", "Index", "Home", new { id = 1, target = "A" }, null)
+
+
+        @Html.RouteLink(
+        "Test",                    // Link Text
+        "Default",                              // Route Name
+        null,                                // Protocol
+        null,                                // Host Name
+        "tabs-"+"target",        // Fragment
+        new
+        {                                // Route Values
+            controller = "Home",
+            action = "Index",
+            id = 1
+        },
+        null                                 // HTML Attributes
+        )
+
+    </div>
+    <div>
+        @ViewBag.page
+    </div>
+</body>
+</html>

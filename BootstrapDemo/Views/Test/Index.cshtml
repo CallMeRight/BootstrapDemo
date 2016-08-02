@@ -1,0 +1,42 @@
+﻿
+@model BootstrapDemo.Models.VendorJobEntities
+@using System.Web.UI.WebControls;
+@{
+    Layout = null;
+}
+
+@{
+    var list = new ListItem[]
+    {
+       new ListItem { Text="1", Value="1" },
+       new ListItem {Text="2",Value="2" }
+    };
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    @foreach (var item in Model.UserEntities)
+    {
+        @item.MyProperty
+    }
+    <div>
+        @Html.ActionLink("Test", "EditTicket", "Ticket", new { id = 111 }, null)
+
+        @Html.TruncateDropDown("AA", list, new { onchange = "GetPersons()" })
+
+
+    </div>
+</body>
+</html>
+<script>
+    function GetPersons() {
+        alert(1)
+    }
+</script>

@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "FileDemo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div id="multiple">
+                <input type="file" class="multiple" name="files" multiple />
+            </div>
+            <div id="single">
+                <input type="file" class="single" name="files" /><br />
+                <input type="file" class="single" name="files" /><br />
+                <input type="file" class="single" name="files" /><br />
+            </div>
+            <button class="btn btn-default">Upload</button>
+        }
+
+
+        @Ajax.ActionLink("Show Selected Schedule", "_SelectedSchedule", new { id = ViewBag.scheduleid }, new AjaxOptions()
+   {
+       HttpMethod = "GET",
+       UpdateTargetId = "bookeseatsrender",
+       InsertionMode = InsertionMode.Replace,
+       LoadingElementId = "ElementID",
+       OnBegin = "Removeonbegin"
+   }, new { @class = "btn btn-info mymarging" })
+    </div>
+</body>
+</html>

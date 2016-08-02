@@ -1,0 +1,69 @@
+﻿@model BootstrapDemo.Models.TestModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TestPartial</title>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <form id="fotmcontent" action="~/Demo/Save">
+        <div class="modal-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MyProperty1, htmlAttributes: new { @class = "control-label col-md-3" })
+                    :@Model.MyProperty1
+                    <input type="hidden" name="MyProperty1" value="@Model.MyProperty1"/>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MyProperty2, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.MyProperty2, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MyProperty2, "", new { @class = "text-danger" })                      
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MyProperty3, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.MyProperty3, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MyProperty3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="dialog-alert">
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">Cancel</button>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </div>
+    </form>
+
+</body>
+</html>
+<script>
+    $('#fotmcontent').submit(function () {
+        $.ajax({
+            url: '@Url.Action("Save","Demo")',
+            type: "Post",
+            data: $("#fotmcontent").serialize(),
+            success: function (result) {
+                if (result.success) {
+                    $("#dialog-alert").html("Data has been updated succeessfully");
+                } else {
+                    $('#Preview').html(result);
+                }
+            }
+        });
+        return false;
+    });
+</script>

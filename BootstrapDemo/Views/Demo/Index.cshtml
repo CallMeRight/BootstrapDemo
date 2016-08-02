@@ -1,0 +1,148 @@
+﻿@model List<BootstrapDemo.Models.TestModel>
+@{
+    Layout = null;
+
+
+    //var myChart = new Chart(width: 600, height: 400, theme: ChartTheme.Green)
+    //   .AddTitle("Chart Title")
+    //   .AddSeries(
+    //       name: "ChartTitle",
+    //       xValue: new[] { "Col1", "Col2", "Col3", "Col4", "Col5" },
+    //       yValues: new[] { "2", "6", "4", "5", "3" })
+    //   .Write();
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <style>
+        .vcenter {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+
+    <div>
+        @Html.ActionLink("Download", "Download", "Demo", new { file = "Default.pdf" })
+
+
+    </div>
+    <div class="alert  alert-block alert-success">
+
+        <div class="row vcenter">
+
+            <div> Success! This alert box could indicate a successful or positive action.  </div>
+            <div> Success! This alert box could indicate a successful or positive action.  </div>
+        </div>
+        <a class="close vcenter  " data-dismiss="alert">×</a>
+    </div>
+
+    <div>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    MyProperty1
+                </td>
+                <td>
+                    MyProperty2
+                </td>
+                <td>
+                    MyProperty3
+                </td>
+                <td>
+                    Operation
+                </td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MyProperty1</td>
+                    <td>@item.MyProperty2</td>
+                    <td>@item.MyProperty3</td>
+                    <td>
+                        <a onclick="Open(@item.MyProperty1)">Open Modal</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div>
+        @Html.ActionLink("Call Devices Action", "Devices", new { ipAddress = "test", portId = "portId" })
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body" id="Preview">
+                    @*PartialView*@
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    @if (1 == 1)
+    {
+        var styleA = "field-line field-line--half";
+        var styleB = "field-line";
+        var st = string.Empty;
+        if (1 != 1)
+        {
+            st = styleA;
+        }
+        else
+        {
+            st = styleB;
+        }
+        <div class="@st">
+            <p>content</p>
+        </div>
+    }
+</body>
+</html>
+<script type="text/javascript">
+    function Open(currentId) {
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("GetDetail", "Demo")',
+            data: { id: currentId },
+            success: function (data) {
+                $('#Preview').html(data);
+                $('#myModal').modal('show');
+            }
+        })
+    }
+
+
+    $('body').on('click', '#confirmDialog', function (e) {
+        e.preventDefault();
+        $(this).attr('data-target', '#dialog-confirm');
+        $(this).attr('data-toggle', 'modal');
+    });
+
+
+</script>
